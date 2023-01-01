@@ -19,7 +19,7 @@ float sudut = 0;
 void lighting();
 
 GLuint makeaTree;
-//sGLuint aplant;
+//GLuint aplant;
 float x,y,z;
 
 void makeCylinder(float height, float base){
@@ -62,36 +62,137 @@ void sun(){
        glutSolidSphere (2.0, 10, 30);
     glPopMatrix ();
 }
-/*void sun(){
+void turtle(float height, float base){
+     glTranslatef(0.0, 0.0, 10.0);
+    //glColor3f (0.2, 0.4, 0.1);
+    glPushMatrix ();
+    glColor3f (0.2, 0.6, 0.2);
+    glTranslatef    (-11.0, -0.5, 0.0);
+    makeCylinder(height, base);
+    glPopMatrix();
+    glPushMatrix ();
+    glColor3f (0.2, 0.6, 0.2);
+    glTranslatef(-10.0, -0.4, 0.0);
+    makeCylinder(0.5*height,0.5* base);
+    glPopMatrix();
+
+    glPushMatrix ();
+    glColor3f (0.2, 0.6, 0.2);
+    glTranslatef    (-12.5, -0.5, 0.0);
+    makeCylinder(height, base);
+    glPopMatrix();
+    glPushMatrix ();
+    glColor3f (0.2, 0.6, 0.2);
+    glTranslatef    (-12.5, -0.4, 0.0);
+    makeCylinder(0.5*height,0.5* base);
+    glPopMatrix();
+    glPushMatrix ();
+    glColor3f (0.2, 0.6, 0.2);
+    glTranslatef    (-9.5, 1.2, 0.0);
+     glRotatef       (60.0, 1,0,0);
+       glRotatef       (0, 0,0,1);
+       glutSolidSphere (1.0, 10, 30);
+    glPopMatrix();
+    glPushMatrix ();
+    glColor3f (1, 1, 1);
+    glTranslatef    (-9.5, 1.5, 1.0);
+     glRotatef       (60.0, 1,0,0);
+       glRotatef       (0, 0,0,1);
+       glutSolidSphere (0.2, 8, 30);
+    glPopMatrix();
+    glPushMatrix ();
+    glColor3f (1, 1, 1);
+    glTranslatef    (-8.8, 1.5, 1.0);
+     glRotatef       (60.0, 1,0,0);
+       glRotatef       (0, 0,0,1);
+       glutSolidSphere (0.2, 8, 30);
+    glPopMatrix();
+    glPushMatrix ();
+    glColor3f (0.3, 0.0, 0.9);
+    glTranslatef    (-8.5, 1.7, 2.0);
+     glRotatef       (60.0, 1,0,0);
+       glRotatef       (0, 0,0,1);
+       glutSolidSphere (0.12, 5, 30);
+    glPopMatrix();
+ glPushMatrix ();
+    glColor3f (0.3, 0.0, 0.9);
+    glTranslatef    (-9.2, 1.7, 2.0);
+     glRotatef       (60.0, 1,0,0);
+       glRotatef       (0, 0,0,1);
+       glutSolidSphere (0.12, 5, 30);
+    glPopMatrix();
+
+    glPushMatrix ();
+    glColor3f (0.2, 0.4, 0.1);
+       glTranslatef    (-11.5, 1.0, 0.0);
+        glRotatef       (60.0, 1,0,0);
+       glRotatef       (0, 0,0,1);
+       //glRotatef       (0, 0,0,1);
+       glutSolidSphere(1.3,4,30);
+    glPopMatrix ();
+}
+void ground(){
      glTranslatef    (0.0, 0.0, -15.0);
 
 
-    glColor3f (1.0, 1.0, 0.2);
-    glPushMatrix ();
-       glTranslatef    (0.0, 20.0, 0.0);
+    glColor3f (0.3, 0.6, 0.2);
+  glPushMatrix ();
+       glTranslatef    (22.0, -7.0, 0.0);
        glRotatef       (60.0, 1,0,0);
        glRotatef       (0, 0,0,1);
-       glBegin(GL_QUADS);
-glVertex3f(20,0,1);
-glVertex3f(20,2,1);
-glVertex3f(-20,2,1);
-glVertex3f(-20,0,1);
-glEnd();
+       glutSolidSphere (15.0, 10, 30);
+        glPopMatrix ();
+         glPushMatrix ();
+        glTranslatef    (0.0, -7.0, 0.0);
+       glRotatef       (60.0, 1,0,0);
+       glRotatef       (0, 0,0,1);
+       glutSolidSphere (15.0, 10, 30);
     glPopMatrix ();
-}*/
+      glPushMatrix ();
+        glTranslatef    (-22.0, -7.0, 0.0);
+       glRotatef       (60.0, 1,0,0);
+       glRotatef       (0, 0,0,1);
+       glutSolidSphere (15.0, 10, 30);
+    glPopMatrix ();
+
+}
+void rocks(){
+     glTranslatef    (0.0, 0.0, 5.0);
+
+
+    glColor3f (0.2, 0.0, 0.2);
+   glPushMatrix ();
+        glTranslatef    (0.0, 2.8, 0.0);
+       glRotatef       (60.0, 1,0,0);
+       glRotatef       (0, 0,0,1);
+       glutSolidSphere (1.0, 5, 30);
+       glPopMatrix ();
+       glPushMatrix ();
+        glTranslatef    (1.5, 2.8, 0.0);
+       glRotatef       (60.0, 1,0,0);
+       glRotatef       (0, 0,0,1);
+       glutSolidSphere (0.8, 5, 30);
+       glPopMatrix ();
+       glPushMatrix ();
+        glTranslatef    (-1.5, 2.8, 0.0);
+       glRotatef       (60.0, 1,0,0);
+       glRotatef       (0, 0,0,1);
+       glutSolidSphere (0.5, 5, 30);
+    glPopMatrix ();
+}
 
 void display(){
 glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 glColor3f(0.0f, 0.60f, 0.0f);
-glPushMatrix();
-glBegin(GL_QUADS);
-glColor3f(0.0f, 0.9f, 0.4f);
-glVertex3f(27,2,1);
-glVertex3f(27,4,1);
-glVertex3f(-27,4,1);
-glVertex3f(-27,2,1);
-glEnd();
-glPopMatrix();
+//glPushMatrix();
+//glBegin(GL_QUADS);
+//glColor3f(0.0f, 0.9f, 0.4f);
+//glVertex3f(27,2,1);
+//glVertex3f(27,4,1);
+//glVertex3f(-27,4,1);
+//glVertex3f(-27,2,1);
+//glEnd();
+//glPopMatrix();
 glPushMatrix();
 glBegin(GL_QUADS);
 glColor3f(0.9f, 0.8f, 0.6f);
@@ -138,6 +239,28 @@ glCallList(makeaTree);
 glPopMatrix();
 glPushMatrix();
 sun();
+glPopMatrix();
+glPushMatrix();
+ground();
+glPopMatrix();
+glPushMatrix();
+rocks();
+glPopMatrix();
+glPushMatrix();
+glTranslatef(-6.0,0.0,-2.0);
+rocks();
+glPopMatrix();
+glPushMatrix();
+glTranslatef(9.0,0.0,-2.0);
+rocks();
+glPopMatrix();
+glPushMatrix();
+glTranslatef(-12.0,0.0,-2.0);
+rocks();
+glPopMatrix();
+glPushMatrix();
+//glTranslatef(-12.0,0.0,2.0);
+turtle(0.8,0.3);
 glPopMatrix();
 glutSwapBuffers();
 glutPostRedisplay();
@@ -227,6 +350,7 @@ makeaTree=glGenLists(1);
 glNewList(makeaTree, GL_COMPILE);
 makeTree(4,0.2);
 glEndList();
+
 }
 void reshape(int w, int h)
 { glViewport (0, 0, (GLsizei) w, (GLsizei) h);
