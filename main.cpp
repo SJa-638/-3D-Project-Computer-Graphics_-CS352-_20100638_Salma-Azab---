@@ -24,7 +24,7 @@ float sudut = 0;
 void lighting();
 void keyboard(unsigned char key, int x, int y);
 GLuint makeaTree;
-//GLuint aplant;
+GLuint aplant;
 float x,y,z;
 
 void makeCylinder(float height, float base){
@@ -55,6 +55,22 @@ makeTree(height,base);
 glPopMatrix();
 
 }}}
+void plant(float height, float base){
+
+float angle;
+ glTranslatef(0.0, height, 0.0);
+height -= height*.2; base-= base*0.3;
+for(int a= 0; a<3; a++){
+angle = rand()%50+20;
+if(angle >48)
+angle = -(rand()%50+20);
+if (height >1){
+glPushMatrix();
+glRotatef(angle,1,0.0,1);
+makeTree(height,base);
+glPopMatrix();
+
+}}}
 void sun(){
      glTranslatef    (0.0, 0.0, -15.0);
 
@@ -68,7 +84,7 @@ void sun(){
     glPopMatrix ();
 }
 void turtle(float height, float base){
-     glTranslatef(0.0, 0.0, 10.0);
+     glTranslatef(-5.0, 0.0, 10.0);
     //glColor3f (0.2, 0.4, 0.1);
     glPushMatrix ();//outer frontleg
     glColor3f (0.2, 0.6, 0.2);
@@ -195,7 +211,7 @@ void rocks(){
     glPopMatrix ();
 }
 void rabbit(){
- glTranslatef    (0.0, 0.0, 6.0);
+ glTranslatef    (-19.0, 0.0, 6.0);
     glColor3f (1.0, 1.0, 1.0);
  glPushMatrix ();//inner leg
         glTranslatef    (2.0, 2.8, 0.0);
@@ -320,6 +336,11 @@ glRotatef(z,0.0,0.0,1.0);
 glCallList(makeaTree);
 glPopMatrix();
 glPushMatrix();
+glTranslatef(9,0,1);
+glRotatef(z,0.0,0.0,1.0);
+glCallList(aplant);
+glPopMatrix();
+glPushMatrix();
 sun();
 glPopMatrix();
 glPushMatrix();
@@ -441,9 +462,7 @@ const GLfloat high_shininess[] = { 100.0f };
 }
 
 void init(void){
-//glPolygonMode(GL_FRONT_AND_BACK,GL_FILL);
 glClearColor(0.1,0.9,1.0,1.0);
-//glShadeModel(GL_SMOOTH);
 glMatrixMode(GL_PROJECTION);
 glLoadIdentity();
 gluPerspective(30.0, 1.0f, 1.0f, 1000.0);
@@ -452,6 +471,10 @@ glEnable(GL_DEPTH_TEST);
 makeaTree=glGenLists(1);
 glNewList(makeaTree, GL_COMPILE);
 makeTree(4,0.3);
+glEndList();
+aplant=glGenLists(1);
+glNewList(aplant, GL_COMPILE);
+plant(3,0.2);
 glEndList();
 
 }
@@ -468,25 +491,11 @@ void timer(int)
 {
     glutPostRedisplay();
     glutTimerFunc(10000/60,timer,0);
+        if(x2_position<27){
+            x2_position+=2;}
+              if(x1_position<32.5){
+            x1_position+=0.5;}
 
-       if(x1_position<27)//used to animate كورتى البعبع to the right of the window
-            x1_position+=1;
-
-   switch(state)//used to animate the cylinder
-    {
-    case 1:
-        if(x2_position<4.5)
-            x2_position+=2;
-        else
-            state=-1;
-        break;
-    case -1:
-        if(x2_position>-15)
-            x2_position-=2;
-        else
-            state=1;
-        break;
-    }
 }
 
 int main(int argc, char **argv)
