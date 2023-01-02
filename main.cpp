@@ -188,7 +188,7 @@ void hills()
 //Function to make the view of street in back ground
 void ground()
 {
-    glColor3f(1.0f, 1.0f, 0.6f);//yellow
+    glColor3f(1.0f, 1.0f, 0.6f);//brown
     glBegin(GL_QUADS);
     glVertex3f(27,-6,1);
     glVertex3f(27,2,1);
@@ -509,6 +509,7 @@ void specialKeys(int key, int x, int y)
         {
             x2_position +=5;
         }
+
     }
     else if(key == GLUT_KEY_LEFT)
     {
@@ -531,6 +532,7 @@ void specialKeys(int key, int x, int y)
         rotate_y -= 5;
         r_y -=2;
     }
+
     glutPostRedisplay();
 }
 //void idleFunc (void)
@@ -641,5 +643,6 @@ int main(int argc, char **argv)
     glutMainLoop();
 
 }
+
 
 
