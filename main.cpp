@@ -136,7 +136,7 @@ void turtle(float height, float base){
     glPopMatrix();
 glPopMatrix();
     glPushMatrix ();//body
-    glColor3f (0.2, 0.4, 0.1);dark green
+    glColor3f (0.2, 0.4, 0.1);//dark green
        glTranslatef    (-11.8, 1.0, 0.0);
         glRotatef       (60.0, 0,1,0);
        glRotatef       (0, 0,0,1);
@@ -304,7 +304,7 @@ glPopMatrix();
 glPushMatrix();//the middle tree
 glTranslatef(2,3,-3);
 glRotatef(z,0.0,0.0,1.0);
-glCallList(makeaTree);
+glCallList(makeaTree);//used to execute the display list and takes the name of list
 glPopMatrix();
 glPushMatrix();
 glTranslatef(17,2,-3);//the 1st tree from right
@@ -489,8 +489,8 @@ glLoadIdentity();
 gluPerspective(30.0, 1.0f, 1.0f, 1000.0);
 glMatrixMode(GL_MODELVIEW);
 glEnable(GL_DEPTH_TEST);
-makeaTree=glGenLists(1);
-glNewList(makeaTree, GL_COMPILE);
+makeaTree=glGenLists(1);// generate a contiguous set of empty display list and takes the no.of lists
+glNewList(makeaTree, GL_COMPILE);//create a display list takes the name of the list and specify the compilation mode
 makeTree(4,0.3);
 glEndList();
 aplant=glGenLists(1);
@@ -499,6 +499,7 @@ plant(3,0.2);
 glEndList();
 
 }
+//function controls the view of objects
 void reshape(int w, int h)
 { glViewport (0, 0, (GLsizei) w, (GLsizei) h);
 glMatrixMode(GL_PROJECTION);
@@ -508,6 +509,7 @@ glMatrixMode(GL_MODELVIEW);
 glLoadIdentity();
 glTranslatef(0.0,-8.0,-50.0);
 }
+// function of animation on the turtle and the rabbit show when they do the race
 void timer(int)
 {
     glutPostRedisplay();
@@ -536,9 +538,9 @@ glutReshapeFunc(reshape);
    glutKeyboardFunc(keyboard);
    glutTimerFunc(0,timer,0);
    texture();
+   //function to play sound
    sndPlaySound("قصص-اطفال-قبل-النوم-_-قصة-الارنب-والسلحفاة-_128-kbps_.wav",SND_SYNC);
     glutMainLoop();
 
 }
-
 
