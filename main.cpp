@@ -17,8 +17,9 @@ double x_axis=0;
 double y_axis=0;
 double z_axis=0;
 double angle=0;int i,p;
-double x_position;
-double x_position;
+double x1_position=0;
+double x2_position=0;
+int state=1;
 float sudut = 0;
 void lighting();
 void keyboard(unsigned char key, int x, int y);
@@ -344,12 +345,21 @@ glTranslatef(-12.0,0.0,-2.0);
 rocks();
 glPopMatrix();
 glPushMatrix();
-glTranslatef(r_x,r_y,2.0);
+glTranslatef(x2_position,r_y,2.0);
 rabbit();
 glPopMatrix();
 glPushMatrix();
-glTranslatef(rotate_x,rotate_y,2.0);
+glTranslatef(x1_position,rotate_y,2.0);
 turtle(0.8,0.3);
+glPopMatrix();
+glPushMatrix();
+glBegin(GL_QUADS);
+glColor3f(1.0,0.0,0.1);
+glVertex3f(20,-6,4);
+glVertex3f(20,2,4);
+glVertex3f(19,2,4);
+glVertex3f(19,-6,4);
+glEnd();
 glPopMatrix();
 glutSwapBuffers();
 glutPostRedisplay();
@@ -369,16 +379,16 @@ case 'z':
 
 void specialKeys(int key , int x , int y){
 if(key == GLUT_KEY_RIGHT){
-   if(rotate_x<27){
-    rotate_x += 2;}
-    if(r_x<5){
-    r_x +=5;}
+   if(x1_position<27){
+    x1_position+= 2;}
+    if(x2_position<5){
+    x2_position +=5;}
    }
 else if(key == GLUT_KEY_LEFT){
-        if(rotate_x>-6){
-    rotate_x -= 2;}
-    if(r_x>-15){
-      r_x -=7;}
+        if(x1_position>-6){
+    x1_position -= 2;}
+    if(x2_position>-15){
+      x2_position -=7;}
      }
     else if(key == GLUT_KEY_UP){
     rotate_y += 5;
@@ -454,25 +464,25 @@ glMatrixMode(GL_MODELVIEW);
 glLoadIdentity();
 glTranslatef(0.0,-8.0,-50.0);
 }
-oid timer(int)
+void timer(int)
 {
     glutPostRedisplay();
-    glutTimerFunc(1000/60,timer,0);
+    glutTimerFunc(10000/60,timer,0);
 
-       if(x_position<5.5)//used to animate كورتى البعبع to the right of the window
-            x_position+=0.30;
+       if(x1_position<27)//used to animate كورتى البعبع to the right of the window
+            x1_position+=1;
 
    switch(state)//used to animate the cylinder
     {
     case 1:
-        if(y_position<4.5)
-            y_position+=0.10;
+        if(x2_position<4.5)
+            x2_position+=2;
         else
             state=-1;
         break;
     case -1:
-        if(y_position>0)
-            y_position-=0.10;
+        if(x2_position>-15)
+            x2_position-=2;
         else
             state=1;
         break;
@@ -494,9 +504,11 @@ glutReshapeFunc(reshape);
     glutIdleFunc    (idleFunc);
     glutSpecialFunc(specialKeys);
    glutKeyboardFunc(keyboard);
+   glutTimerFunc(0,timer,0);
    texture();
    sndPlaySound("قصص-اطفال-قبل-النوم-_-قصة-الارنب-والسلحفاة-_128-kbps_.wav",SND_SYNC);
     glutMainLoop();
 
 }
+
 
