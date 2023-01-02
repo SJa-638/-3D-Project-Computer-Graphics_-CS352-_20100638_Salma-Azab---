@@ -76,6 +76,7 @@ void plant(float height, float base)
         }
     }
 }
+
 //Functio to make the sun
 void sun()
 {
@@ -158,6 +159,7 @@ void turtle(float height, float base)
     glutSolidSphere(1.41,4,30);
     glPopMatrix ();
 }
+
 //Function to make the view of  hills in the back ground
 void hills()
 {
@@ -381,6 +383,60 @@ void display()
     glRotatef(z,0.0,0.0,1.0);
     glCallList(aplant);
     glPopMatrix();
+     glPushMatrix();
+     glTranslatef(-9,3.2,3);
+    glBegin(GL_TRIANGLES);           // A non built in Function acts AS arock
+      // Front
+      glColor3f(0.5f, 0.5f, 0.5f);     // yellow
+      glVertex3f( 0.0f, 1.0f, 0.0f);
+      glVertex3f(-1.0f, -1.0f, 1.0f);
+      glVertex3f(1.0f, -1.0f, 1.0f);
+
+      // Right
+      glVertex3f(0.0f, 1.0f, 0.0f);
+      glVertex3f(1.0f, -1.0f, 1.0f);
+      glVertex3f(1.0f, -1.0f, -1.0f);
+ // back
+      glVertex3f( 0.0f, 1.0f, 0.0f);
+      glVertex3f(1.0f, -1.0f,-1.0f);
+      glVertex3f(-1.0f,-1.0f,-1.0f);
+
+      // left
+      glVertex3f(0.0f, 1.0f, 0.0f);
+     glVertex3f(-1.0f,-1.0f,-1.0f);
+      glVertex3f(-1.0f, -1.0f, 1.0f);
+
+
+   glEnd();   // Done drawing the pyramid
+
+    glPopMatrix();
+    glPushMatrix();
+     glTranslatef(13,3.2,3);
+    glBegin(GL_TRIANGLES);           // A non built in Function acts AS arock
+      // Front
+      glColor3f(0.5f, 0.5f, 0.5f);     // yellow
+      glVertex3f( 0.0f, 1.0f, 0.0f);
+      glVertex3f(-1.0f, -1.0f, 1.0f);
+      glVertex3f(1.0f, -1.0f, 1.0f);
+
+      // Right
+      glVertex3f(0.0f, 1.0f, 0.0f);
+      glVertex3f(1.0f, -1.0f, 1.0f);
+      glVertex3f(1.0f, -1.0f, -1.0f);
+ // back
+      glVertex3f( 0.0f, 1.0f, 0.0f);
+      glVertex3f(1.0f, -1.0f,-1.0f);
+      glVertex3f(-1.0f,-1.0f,-1.0f);
+
+      // left
+      glVertex3f(0.0f, 1.0f, 0.0f);
+     glVertex3f(-1.0f,-1.0f,-1.0f);
+      glVertex3f(-1.0f, -1.0f, 1.0f);
+
+
+   glEnd();   // Done drawing the pyramid
+
+    glPopMatrix();
     glPushMatrix();
     sun();
     glPopMatrix();
@@ -585,4 +641,5 @@ int main(int argc, char **argv)
     glutMainLoop();
 
 }
+
 
