@@ -336,7 +336,37 @@ glRotatef(z,0.0,0.0,1.0);
 glCallList(makeaTree);
 glPopMatrix();
 glPushMatrix();
-glTranslatef(9,0,1);
+glTranslatef(10,-2,-1);
+glRotatef(z,0.0,0.0,1.0);
+glCallList(aplant);
+glPopMatrix();
+glPushMatrix();
+glTranslatef(23,-2,-1);
+glRotatef(z,0.0,0.0,1.0);
+glCallList(aplant);
+glPopMatrix();
+glPushMatrix();
+glTranslatef(-23,-2,-1);
+glRotatef(z,0.0,0.0,1.0);
+glCallList(aplant);
+glPopMatrix();
+glPushMatrix();
+glTranslatef(4,-2,-1);
+glRotatef(z,0.0,0.0,1.0);
+glCallList(aplant);
+glPopMatrix();
+glPushMatrix();
+glTranslatef(19,-2,-1);
+glRotatef(z,0.0,0.0,1.0);
+glCallList(aplant);
+glPopMatrix();
+glPushMatrix();
+glTranslatef(-4,-2,-1);
+glRotatef(z,0.0,0.0,1.0);
+glCallList(aplant);
+glPopMatrix();
+glPushMatrix();
+glTranslatef(-18,-2,-1);
 glRotatef(z,0.0,0.0,1.0);
 glCallList(aplant);
 glPopMatrix();
@@ -519,5 +549,4 @@ glutReshapeFunc(reshape);
     glutMainLoop();
 
 }
-
 
