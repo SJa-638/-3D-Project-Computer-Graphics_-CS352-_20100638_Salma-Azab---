@@ -5,41 +5,32 @@
 #include<windows.h>
 #include<math.h>
 #include<mmsystem.h>
-float theta=0.0f;
-float speed = 0.0f;
-void display();
-void specialKeys();
-double rotate_y=0;
-double rotate_x = 0;
+double rotate_y=0;//used in special key & Timer function
 double r_y = 0;
 double r_x = 0;
-double x_axis=0;
-double y_axis=0;
-double z_axis=0;
-double angle=0;int i,p;
 double x1_position=0;
 double x2_position=0;
-int state=1;
-float sudut = 0;
-void lighting();
-void keyboard(unsigned char key, int x, int y);
-GLuint makeaTree;
+GLuint makeaTree;//unsigned binary integer Open GL Type(32)
 GLuint aplant;
-float x,y,z;
+float z;//z_axis
 
+
+//Function to make a cylinder shape as it takes height and base used to make trees and turtle legs
 void makeCylinder(float height, float base){
-GLUquadric *obj = gluNewQuadric();
-//gluQuadricDrawStyle(obj, GLU_LINE);
+GLUquadric *obj = gluNewQuadric();//fuction creates & returns apointer to anew quadric
 glColor3f(0.16f, 0.64f, 0.16f);
-//glColor3f(0.0f, 1.64f, 0.0f);
 glPushMatrix();
 glRotatef(-90, 1.0,0.0,0.0);
 gluCylinder(obj, base,base-(0.2*base), height, 20,20);
 glPopMatrix();
 glutSwapBuffers();
 }
+//Function to make the branches of the tree not built in function
+//I use the prev. cylinder function as a the root of the tree and then
+//operates its base and height and make a for loop to start doing the branches by following operation
+//as it makes 3 main branches then if the angle >48 decrease the angle between the other branches and
+//as the height is greater than 1 the tree is ready to use
 void makeTree(float height, float base){
-
 float angle;
 makeCylinder(height, base);
  glTranslatef(0.0, height, 0.0);
@@ -55,6 +46,7 @@ makeTree(height,base);
 glPopMatrix();
 
 }}}
+//Function to make the ground plants not built in function
 void plant(float height, float base){
 
 float angle;
@@ -71,11 +63,10 @@ makeTree(height,base);
 glPopMatrix();
 
 }}}
+//Functio to make the sun
 void sun(){
      glTranslatef    (0.0, 0.0, -15.0);
-
-
-    glColor3f (1.0, 1.0, 0.2);
+    glColor3f (1.0, 1.0, 0.2);//yellow
     glPushMatrix ();
        glTranslatef    (0.0, 20.0, 0.0);
        glRotatef       (60.0, 1,0,0);
@@ -83,61 +74,61 @@ void sun(){
        glutSolidSphere (2.0, 10, 30);
     glPopMatrix ();
 }
+//function to make the turtle
 void turtle(float height, float base){
      glTranslatef(-5.0, 0.0, 10.0);
-    //glColor3f (0.2, 0.4, 0.1);
     glPushMatrix ();//outer frontleg
-    glColor3f (0.2, 0.6, 0.2);
+    glColor3f (0.2, 0.6, 0.2);//light green
     glTranslatef    (-11.0, -0.5, 0.0);
     makeCylinder(height, base);
     glPopMatrix();
     glPushMatrix ();//inner front leg
-    glColor3f (0.2, 0.6, 0.2);
+    glColor3f (0.2, 0.6, 0.2);//light green
     glTranslatef(-10.0, -0.4, 0.0);
     makeCylinder(0.5*height,0.5* base);
     glPopMatrix();
 
     glPushMatrix ();//outer back leg
-    glColor3f (0.2, 0.6, 0.2);
+    glColor3f (0.2, 0.6, 0.2);//light green
     glTranslatef    (-12.5, -0.5, 0.0);
     makeCylinder(height, base);
     glPopMatrix();
     glPushMatrix ();//inner back leg
-    glColor3f (0.2, 0.6, 0.2);
+    glColor3f (0.2, 0.6, 0.2);// light green
     glTranslatef    (-12.5, -0.4, 0.0);
     makeCylinder(0.5*height,0.5* base);
     glPopMatrix();
     glPushMatrix();
     glPushMatrix ();//head
-    glColor3f (0.2, 0.6, 0.2);
+    glColor3f (0.2, 0.6, 0.2);//light green
     glTranslatef    (-9.5, 1.2, 0.0);
      glRotatef       (60.0, 1,0,0);
        glRotatef       (0, 0,0,1);
        glutSolidSphere (1.0, 10, 30);
     glPopMatrix();
     glPushMatrix ();//white eye
-    glColor3f (1, 1, 1);
+    glColor3f (1, 1, 1);//white
     glTranslatef    (-9.5, 1.5, 1.0);
      glRotatef       (60.0, 1,0,0);
        glRotatef       (0, 0,0,1);
        glutSolidSphere (0.2, 8, 30);
     glPopMatrix();
     glPushMatrix ();//white eye
-    glColor3f (1, 1, 1);
+    glColor3f (1, 1, 1);//white
     glTranslatef    (-8.8, 1.5, 1.0);
      glRotatef       (60.0, 1,0,0);
        glRotatef       (0, 0,0,1);
        glutSolidSphere (0.2, 8, 30);
     glPopMatrix();
     glPushMatrix ();//blue eye
-    glColor3f (0.3, 0.0, 0.9);
+    glColor3f (0.3, 0.0, 0.9);//blue
     glTranslatef    (-8.7, 1.7, 2.0);
      glRotatef       (60.0, 1,0,0);
        glRotatef       (0, 0,0,1);
        glutSolidSphere (0.12, 5, 30);
     glPopMatrix();
  glPushMatrix ();//blue eye
-    glColor3f (0.3, 0.0, 0.9);
+    glColor3f (0.3, 0.0, 0.9);//blue
     glTranslatef    (-9.4, 1.7, 2.0);
      glRotatef       (60.0, 1,0,0);
        glRotatef       (0, 0,0,1);
@@ -145,18 +136,17 @@ void turtle(float height, float base){
     glPopMatrix();
 glPopMatrix();
     glPushMatrix ();//body
-    glColor3f (0.2, 0.4, 0.1);
+    glColor3f (0.2, 0.4, 0.1);dark green
        glTranslatef    (-11.8, 1.0, 0.0);
         glRotatef       (60.0, 0,1,0);
        glRotatef       (0, 0,0,1);
        glutSolidSphere(1.41,4,30);
     glPopMatrix ();
 }
+//Function to make the view of  hills in the back ground
 void hills(){
      glTranslatef    (0.0, 0.0, -15.0);
-
-
-    glColor3f (0.3, 0.6, 0.2);
+    glColor3f (0.3, 0.6, 0.2);//green
   glPushMatrix ();//1st hill
        glTranslatef    (22.0, -7.0, 0.0);
        glRotatef       (60.0, 1,0,0);
@@ -177,9 +167,9 @@ void hills(){
     glPopMatrix ();
 
 }
+//Function to make the view of street in back ground
 void ground(){
-
-glColor3f(1.0f, 1.0f, 0.6f);
+glColor3f(1.0f, 1.0f, 0.6f);//yellow
 glBegin(GL_QUADS);
 glVertex3f(27,-6,1);
 glVertex3f(27,2,1);
@@ -188,9 +178,10 @@ glVertex3f(-27,-6,1);
 glEnd();
 
 }
+//Function to make the view of rocks in background
 void rocks(){
      glTranslatef    (0.0, 0.0, 5.0);
-    glColor3f (0.7, 0.7, 0.7);
+    glColor3f (0.7, 0.7, 0.7);//gray
    glPushMatrix ();//middle rock
         glTranslatef    (0.0, 2.8, 0.0);
        glRotatef       (60.0, 1,0,0);
@@ -210,9 +201,10 @@ void rocks(){
        glutSolidSphere (0.5, 5, 30);
     glPopMatrix ();
 }
+//Function to make the rabbit
 void rabbit(){
  glTranslatef    (-19.0, 0.0, 6.0);
-    glColor3f (1.0, 1.0, 1.0);
+    glColor3f (1.0, 1.0, 1.0);//white
  glPushMatrix ();//inner leg
         glTranslatef    (2.0, 2.8, 0.0);
        glRotatef       (60.0, 1,0,0);
@@ -278,24 +270,23 @@ void rabbit(){
        glScalef(0.7,1.2,1.0);
        glutSolidDodecahedron();
     glPopMatrix ();
-
        glPushMatrix ();//nose
         glTranslatef    (2.3, 6.2, 3.0);
-        glColor3f(0.9,0.6,0.7);
+        glColor3f(0.9,0.6,0.7);//pink
        glRotatef       (60.0, 0,1,0);
        glRotatef       (0, 0,0,1);
        glutSolidSphere (0.3, 3, 30);
        glPopMatrix ();
   glPushMatrix ();//inner eye
         glTranslatef    (2.1, 7.0, 3.0);
-        glColor3f(0.0,0.0,0.0);
+        glColor3f(0.0,0.0,0.0);//black
        glRotatef       (60.0, 0,1,0);
        glRotatef       (0, 0,0,1);
        glutSolidSphere (0.1, 3, 30);
        glPopMatrix ();
          glPushMatrix ();//outer eye
         glTranslatef    (2.6, 7.0, 2.0);
-        glColor3f(0.0,0.0,0.0);
+        glColor3f(0.0,0.0,0.0);//black
        glRotatef       (60.0, 0,1,0);
        glRotatef       (0, 0,0,1);
        glutSolidSphere (0.1, 3, 30);
@@ -310,63 +301,63 @@ glPushMatrix();
 glTranslatef(0.0,0.0,1.0);
 ground();
 glPopMatrix();
-glPushMatrix();
+glPushMatrix();//the middle tree
 glTranslatef(2,3,-3);
 glRotatef(z,0.0,0.0,1.0);
 glCallList(makeaTree);
 glPopMatrix();
 glPushMatrix();
-glTranslatef(17,2,-3);
+glTranslatef(17,2,-3);//the 1st tree from right
 glRotatef(z,0.0,0.0,1.0);
 glCallList(makeaTree);
 glPopMatrix();
 glPushMatrix();
-glTranslatef(-7,2,-3);
+glTranslatef(-7,2,-3);//the 2nd tree from left
 glRotatef(z,0.0,0.0,1.0);
 glCallList(makeaTree);
 glPopMatrix();
 glPushMatrix();
-glTranslatef(-13,2,-3);
+glTranslatef(-13,2,-3);//The 1st tree from left
 glRotatef(z,0.0,0.0,1.0);
 glCallList(makeaTree);
 glPopMatrix();
 glPushMatrix();
-glTranslatef(9,3,-3);
+glTranslatef(9,3,-3);//The 2nd tree from right
 glRotatef(z,0.0,0.0,1.0);
 glCallList(makeaTree);
 glPopMatrix();
 glPushMatrix();
-glTranslatef(10,-2,-1);
+glTranslatef(10,-2,-1);//the 3rd plant from right
 glRotatef(z,0.0,0.0,1.0);
 glCallList(aplant);
 glPopMatrix();
 glPushMatrix();
-glTranslatef(23,-2,-1);
+glTranslatef(23,-2,-1);//The 1st plant from right
 glRotatef(z,0.0,0.0,1.0);
 glCallList(aplant);
 glPopMatrix();
 glPushMatrix();
-glTranslatef(-23,-2,-1);
+glTranslatef(-23,-2,-1);//the 1st plant from left
 glRotatef(z,0.0,0.0,1.0);
 glCallList(aplant);
 glPopMatrix();
 glPushMatrix();
-glTranslatef(4,-2,-1);
+glTranslatef(4,-2,-1);//The middle plant
 glRotatef(z,0.0,0.0,1.0);
 glCallList(aplant);
 glPopMatrix();
 glPushMatrix();
-glTranslatef(19,-2,-1);
+glTranslatef(19,-2,-1);//The 2nd plant from right
 glRotatef(z,0.0,0.0,1.0);
 glCallList(aplant);
 glPopMatrix();
 glPushMatrix();
-glTranslatef(-4,-2,-1);
+glTranslatef(-4,-2,-1);//The 3rd plant from left
 glRotatef(z,0.0,0.0,1.0);
 glCallList(aplant);
 glPopMatrix();
 glPushMatrix();
-glTranslatef(-18,-2,-1);
+glTranslatef(-18,-2,-1);//The 2nd plant from left
 glRotatef(z,0.0,0.0,1.0);
 glCallList(aplant);
 glPopMatrix();
@@ -377,22 +368,22 @@ glPushMatrix();
 hills();
 glPopMatrix();
 glPushMatrix();
+rocks();// the middle rocks
+glPopMatrix();
+glPushMatrix();
+glTranslatef(-6.0,0.0,-2.0);//the 2nd rocks from left
 rocks();
 glPopMatrix();
 glPushMatrix();
-glTranslatef(-6.0,0.0,-2.0);
+glTranslatef(9.0,0.0,-2.0);// the 2nd rocks from right
 rocks();
 glPopMatrix();
 glPushMatrix();
-glTranslatef(9.0,0.0,-2.0);
+glTranslatef(17.0,0.0,-2.0);// the 1st rocks from right
 rocks();
 glPopMatrix();
 glPushMatrix();
-glTranslatef(17.0,0.0,-2.0);
-rocks();
-glPopMatrix();
-glPushMatrix();
-glTranslatef(-12.0,0.0,-2.0);
+glTranslatef(-12.0,0.0,-2.0);//The 1st rocks from left
 rocks();
 glPopMatrix();
 glPushMatrix();
@@ -404,8 +395,8 @@ glTranslatef(x1_position,rotate_y,2.0);
 turtle(0.8,0.3);
 glPopMatrix();
 glPushMatrix();
-glBegin(GL_QUADS);
-glColor3f(1.0,0.0,0.1);
+glBegin(GL_QUADS);// The final race line
+glColor3f(1.0,0.0,0.1);//red
 glVertex3f(20,-6,4);
 glVertex3f(20,2,4);
 glVertex3f(19,2,4);
@@ -417,7 +408,7 @@ glutPostRedisplay();
 
 
 }
-double distance=0.01;
+//function that if you press the z button the trees and plants will rotate around the z axis
 void keyboard(unsigned char key, int x, int y){
 switch (key){
 
@@ -427,7 +418,7 @@ case 'z':
       break;
 }
 }
-
+// function that you can use the arrows to make animation on the turtle and rabbit
 void specialKeys(int key , int x , int y){
 if(key == GLUT_KEY_RIGHT){
    if(x1_position<27){
@@ -451,11 +442,11 @@ else if(key == GLUT_KEY_LEFT){
       }
 glutPostRedisplay();
 }
-void idleFunc (void)
-{
+//void idleFunc (void)
+//{
 
-    glutPostRedisplay();
-}
+   // glutPostRedisplay();
+//}
 void texture (void){
 const GLfloat light_ambient[]  = { 0.0f, 0.0f, 0.0f, 1.0f };
 const GLfloat light_diffuse[]  = { 1.0f, 1.0f, 1.0f, 1.0f };
@@ -540,7 +531,7 @@ glRotatef(1,1,0,0);
 init();
 glutReshapeFunc(reshape);
     glutDisplayFunc(display);
-    glutIdleFunc    (idleFunc);
+   // glutIdleFunc    (idleFunc);
     glutSpecialFunc(specialKeys);
    glutKeyboardFunc(keyboard);
    glutTimerFunc(0,timer,0);
@@ -549,4 +540,5 @@ glutReshapeFunc(reshape);
     glutMainLoop();
 
 }
+
 
