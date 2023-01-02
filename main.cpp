@@ -4,19 +4,24 @@
 #include<stdlib.h>
 #include<windows.h>
 #include<math.h>
+#include<mmsystem.h>
 float theta=0.0f;
 float speed = 0.0f;
 void display();
 void specialKeys();
 double rotate_y=0;
 double rotate_x = 0;
+double r_y = 0;
+double r_x = 0;
 double x_axis=0;
 double y_axis=0;
 double z_axis=0;
 double angle=0;int i,p;
+double x_position;
+double x_position;
 float sudut = 0;
 void lighting();
-
+void keyboard(unsigned char key, int x, int y);
 GLuint makeaTree;
 //GLuint aplant;
 float x,y,z;
@@ -85,6 +90,7 @@ void turtle(float height, float base){
     glTranslatef    (-12.5, -0.4, 0.0);
     makeCylinder(0.5*height,0.5* base);
     glPopMatrix();
+    glPushMatrix();
     glPushMatrix ();//head
     glColor3f (0.2, 0.6, 0.2);
     glTranslatef    (-9.5, 1.2, 0.0);
@@ -108,19 +114,19 @@ void turtle(float height, float base){
     glPopMatrix();
     glPushMatrix ();//blue eye
     glColor3f (0.3, 0.0, 0.9);
-    glTranslatef    (-8.5, 1.7, 2.0);
+    glTranslatef    (-8.7, 1.7, 2.0);
      glRotatef       (60.0, 1,0,0);
        glRotatef       (0, 0,0,1);
        glutSolidSphere (0.12, 5, 30);
     glPopMatrix();
  glPushMatrix ();//blue eye
     glColor3f (0.3, 0.0, 0.9);
-    glTranslatef    (-9.2, 1.7, 2.0);
+    glTranslatef    (-9.4, 1.7, 2.0);
      glRotatef       (60.0, 1,0,0);
        glRotatef       (0, 0,0,1);
        glutSolidSphere (0.12, 5, 30);
     glPopMatrix();
-
+glPopMatrix();
     glPushMatrix ();//body
     glColor3f (0.2, 0.4, 0.1);
        glTranslatef    (-11.8, 1.0, 0.0);
@@ -191,19 +197,19 @@ void rabbit(){
  glTranslatef    (0.0, 0.0, 6.0);
     glColor3f (1.0, 1.0, 1.0);
  glPushMatrix ();//inner leg
-        glTranslatef    (1.5, 2.8, 0.0);
+        glTranslatef    (2.0, 2.8, 0.0);
        glRotatef       (60.0, 1,0,0);
        glRotatef       (0, 0,0,1);
        glutSolidSphere (0.8, 5, 30);
        glPopMatrix ();
         glPushMatrix ();//outer leg
-        glTranslatef    (1.5, 3.0, 2.5);
+        glTranslatef    (2.0, 3.0, 2.5);
        glRotatef       (60.0, 1,0,0);
        glRotatef       (0, 0,0,1);
        glutSolidSphere (0.9, 5, 30);
        glPopMatrix ();
        glPushMatrix ();//tail
-        glTranslatef    (3.0, 3.0, 2.0);
+        glTranslatef    (0.5, 3.0, 2.0);
        glRotatef       (60.0, 1,0,0);
        glRotatef       (0, 0,0,1);
        glutSolidSphere (0.5, 5, 30);
@@ -215,31 +221,31 @@ void rabbit(){
        glutSolidSphere (1.2, 10, 30);
        glPopMatrix ();
         glPushMatrix ();//inner foot
-        glTranslatef    (1.0, 2.0, 0.0);
+        glTranslatef    (2.5, 2.0, 0.0);
        glRotatef       (60.0, 0,1,0);
        glRotatef       (0, 0,0,1);
        glutSolidSphere (0.5, 3, 30);
        glPopMatrix ();
         glPushMatrix ();//outer foot
-        glTranslatef    (1.4, 1.8, 1.0);
+        glTranslatef    (2.0, 1.8, 1.0);
        glRotatef       (60.0, 0,1,0);
        glRotatef       (0, 0,0,1);
        glutSolidSphere (0.5, 3, 30);
        glPopMatrix ();
        glPushMatrix ();//inner hand
-        glTranslatef    (0.8, 4.5, 0.0);
+        glTranslatef    (3.0, 4.5, 0.0);
        glRotatef       (60.0, 0,1,0);
        glRotatef       (0, 0,0,1);
        glutSolidSphere (0.5, 3, 30);
        glPopMatrix ();
         glPushMatrix ();//outer hand
-        glTranslatef    (1.0, 4.6, 3.0);
+        glTranslatef    (2.3, 4.6, 3.0);
        glRotatef       (60.0, 0,1,0);
        glRotatef       (0, 0,0,1);
        glutSolidSphere (0.5, 3, 30);
        glPopMatrix ();
        glPushMatrix ();//outer ear
-        glTranslatef    (1.5, 7.6, 2.0);
+        glTranslatef    (1.3, 7.6, 2.5);
        glRotatef       (160.0, 0,1,1);
        glRotatef       (0, 0,0,1);
        glutSolidCone(0.4,2.0,5,30) ;
@@ -257,21 +263,21 @@ void rabbit(){
     glPopMatrix ();
 
        glPushMatrix ();//nose
-        glTranslatef    (0.3, 6.2, 3.0);
+        glTranslatef    (2.3, 6.2, 3.0);
         glColor3f(0.9,0.6,0.7);
        glRotatef       (60.0, 0,1,0);
        glRotatef       (0, 0,0,1);
        glutSolidSphere (0.3, 3, 30);
        glPopMatrix ();
   glPushMatrix ();//inner eye
-        glTranslatef    (0.4, 7.0, 2.0);
+        glTranslatef    (2.1, 7.0, 3.0);
         glColor3f(0.0,0.0,0.0);
        glRotatef       (60.0, 0,1,0);
        glRotatef       (0, 0,0,1);
        glutSolidSphere (0.1, 3, 30);
        glPopMatrix ();
          glPushMatrix ();//outer eye
-        glTranslatef    (0.5, 7.0, 3.0);
+        glTranslatef    (2.6, 7.0, 2.0);
         glColor3f(0.0,0.0,0.0);
        glRotatef       (60.0, 0,1,0);
        glRotatef       (0, 0,0,1);
@@ -283,51 +289,32 @@ void rabbit(){
 void display(){
 glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 glColor3f(0.0f, 0.60f, 0.0f);
-//glPushMatrix();
-//glBegin(GL_QUADS);
-//glColor3f(0.0f, 0.9f, 0.4f);
-//glVertex3f(27,2,1);
-//glVertex3f(27,4,1);
-//glVertex3f(-27,4,1);
-//glVertex3f(-27,2,1);
-//glEnd();
-//glPopMatrix();
 glPushMatrix();
 glTranslatef(0.0,0.0,1.0);
 ground();
 glPopMatrix();
 glPushMatrix();
 glTranslatef(2,3,-3);
-glRotatef(x,1.0,0.0,0.0);
-glRotatef(y,0.0,1.0,0.0);
 glRotatef(z,0.0,0.0,1.0);
 glCallList(makeaTree);
 glPopMatrix();
 glPushMatrix();
 glTranslatef(17,2,-3);
-glRotatef(x,1.0,0.0,0.0);
-glRotatef(y,0.0,1.0,0.0);
 glRotatef(z,0.0,0.0,1.0);
 glCallList(makeaTree);
 glPopMatrix();
 glPushMatrix();
 glTranslatef(-7,2,-3);
-glRotatef(x,1.0,0.0,0.0);
-glRotatef(y,0.0,1.0,0.0);
 glRotatef(z,0.0,0.0,1.0);
 glCallList(makeaTree);
 glPopMatrix();
 glPushMatrix();
 glTranslatef(-13,2,-3);
-glRotatef(x,1.0,0.0,0.0);
-glRotatef(y,0.0,1.0,0.0);
 glRotatef(z,0.0,0.0,1.0);
 glCallList(makeaTree);
 glPopMatrix();
 glPushMatrix();
 glTranslatef(9,3,-3);
-glRotatef(x,1.0,0.0,0.0);
-glRotatef(y,0.0,1.0,0.0);
 glRotatef(z,0.0,0.0,1.0);
 glCallList(makeaTree);
 glPopMatrix();
@@ -357,11 +344,11 @@ glTranslatef(-12.0,0.0,-2.0);
 rocks();
 glPopMatrix();
 glPushMatrix();
-glTranslatef(8.0,-2.0,2.0);
+glTranslatef(r_x,r_y,2.0);
 rabbit();
 glPopMatrix();
 glPushMatrix();
-glTranslatef(0.0,0.0,2.0);
+glTranslatef(rotate_x,rotate_y,2.0);
 turtle(0.8,0.3);
 glPopMatrix();
 glutSwapBuffers();
@@ -372,30 +359,35 @@ glutPostRedisplay();
 double distance=0.01;
 void keyboard(unsigned char key, int x, int y){
 switch (key){
-case 'x':
-x +=10;
-glutPostRedisplay();
-break;
-case 'y':
-y +=10;
-glutPostRedisplay();
-break;
+
 case 'z':
-z+=10;
-glutPostRedisplay();
-break;
+      z+=10;
+      glutPostRedisplay();
+      break;
 }
 }
 
 void specialKeys(int key , int x , int y){
-if(key == GLUT_KEY_RIGHT)
+if(key == GLUT_KEY_RIGHT){
+   if(rotate_x<27){
+    rotate_x += 2;}
+    if(r_x<5){
+    r_x +=5;}
+   }
+else if(key == GLUT_KEY_LEFT){
+        if(rotate_x>-6){
+    rotate_x -= 2;}
+    if(r_x>-15){
+      r_x -=7;}
+     }
+    else if(key == GLUT_KEY_UP){
     rotate_y += 5;
-else if(key == GLUT_KEY_LEFT)
+     r_y +=2;
+     }
+    else if(key == GLUT_KEY_DOWN){
     rotate_y -= 5;
-    else if(key == GLUT_KEY_UP)
-    rotate_x += 5;
-    else if(key == GLUT_KEY_DOWN)
-    rotate_x -= 5;
+     r_y -=2;
+      }
 glutPostRedisplay();
 }
 void idleFunc (void)
@@ -462,6 +454,30 @@ glMatrixMode(GL_MODELVIEW);
 glLoadIdentity();
 glTranslatef(0.0,-8.0,-50.0);
 }
+oid timer(int)
+{
+    glutPostRedisplay();
+    glutTimerFunc(1000/60,timer,0);
+
+       if(x_position<5.5)//used to animate كورتى البعبع to the right of the window
+            x_position+=0.30;
+
+   switch(state)//used to animate the cylinder
+    {
+    case 1:
+        if(y_position<4.5)
+            y_position+=0.10;
+        else
+            state=-1;
+        break;
+    case -1:
+        if(y_position>0)
+            y_position-=0.10;
+        else
+            state=1;
+        break;
+    }
+}
 
 int main(int argc, char **argv)
 {
@@ -471,7 +487,6 @@ int main(int argc, char **argv)
      glutInitWindowSize (1200, 800);
   glutInitWindowPosition(200,0);
 glutCreateWindow("20100638");
-
 glRotatef(1,1,0,0);
 init();
 glutReshapeFunc(reshape);
@@ -480,6 +495,7 @@ glutReshapeFunc(reshape);
     glutSpecialFunc(specialKeys);
    glutKeyboardFunc(keyboard);
    texture();
+   sndPlaySound("قصص-اطفال-قبل-النوم-_-قصة-الارنب-والسلحفاة-_128-kbps_.wav",SND_SYNC);
     glutMainLoop();
 
 }
